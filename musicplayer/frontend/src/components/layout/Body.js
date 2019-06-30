@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export class Body extends Component {
   render() {
     return (
-      <div style={{"paddingLeft": "1vw"}}>
+      <div style={{ paddingLeft: "1vw", "paddingRight": "1vw"}}>
         <h1>Simple Sidebar</h1>
         <p>
           The starting state of the menu will appear collapsed on smaller

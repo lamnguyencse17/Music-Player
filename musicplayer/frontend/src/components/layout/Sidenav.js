@@ -3,16 +3,33 @@ import React, { Component } from "react";
 export class Sidenav extends Component {
   render() {
     return (
-        <div className="sidebar">
-            <ul className="list-group">
-                <li class="list-group-item">
-                    <a>Something</a>
-                </li>
-                <li class="list-group-item">
-                    <a>In</a>
-                </li>
-            </ul>
+      <aside
+        id="basicSidebar"
+        className="pmd-sidebar bg-light pmd-z-depth"
+        role="navigation"
+        style={{ height: "100%" }}
+      >
+        <div class="navbar-header" style={{textAlign: "center"}}>
+          <a class="navbar-brand" href="#">
+            Spotify
+          </a>
         </div>
+        <li class="list-group-item list-group-item-action">
+          <a class="nav-link active" href="#">
+            <span class="media-body">Home</span>
+          </a>
+        </li>
+        <li class="list-group-item list-group-item-action">
+          <a class="nav-link active" href="#">
+            <span class="media-body">Search</span>
+          </a>
+        </li>
+        <li class="list-group-item list-group-item-action">
+          <a class="nav-link active" href="#">
+            <span class="media-body">Library</span>
+          </a>
+        </li>
+      </aside>
     );
   }
 }
