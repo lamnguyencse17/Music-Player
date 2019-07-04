@@ -1,9 +1,9 @@
 GENRE_CHOICES = (
-    (1, _("Unknown Genre")),
-    (2, _("Rock")),
-    (3, _("Pop")),
-    (4, _("Ballad")),
-    (5, _("EDM")),
-    (6, _("Jazz")),
-    (7, _("Hiphop"))
+    (1, "Unknown Genre"),
+    (2, "Rock"),
+    (3, "Pop"),
+    (4, "Ballad"),
+    (5, "EDM"),
+    (6, "Jazz"),
+    (7, "Hiphop")
 )
