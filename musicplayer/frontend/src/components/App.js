@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <div className="row" style={{"height": "93%"}}>
+        <div className="row" style={{"height": "93%", "width": "100%"}}>
           <div class="col-sm-2" style={{"paddingRight": "0", "height": "100%"}}>
             <Sidenav />
           </div>
