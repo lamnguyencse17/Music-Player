@@ -9,12 +9,19 @@ class Album(models.Model):
     def __str__(self):
         return self.album
 
+    def save(self, *args, **kwargs):
+        self.name = self.name.title()
+        super().save(*args, **kwargs)
+
 class Artist(models.Model):
     name = models.CharField(max_length=100, default="Unknown Artist")
 
     def __str__(self):
         return self.name
     
+    def save(self, *args, **kwargs):
+        self.name = self.name.title()
+        super().save(*args, **kwargs)
 
 class Music(models.Model):
     song = models.CharField(max_length=100, default="Unknown Song")
@@ -23,6 +30,11 @@ class Music(models.Model):
     album = models.ManyToManyField(Album, null = True, blank = True, default=None, related_name="includes")
     genre = models.IntegerField(choices=GENRE_CHOICES, default=1)
     cover = models.ImageField(upload_to = 'cover/', null = True, blank = True, default=None)
+    source = models.FileField(blank = False, null=False)
 
     def __str__(self):
         return self.song
+    
+    def save(self, *args, **kwargs):
+        self.song = self.song.title()
+        super().save(*args, **kwargs)

@@ -4,3 +4,13 @@ node_modules/
 musicplayer/musicplayer/__pycache__/
 
 musicplayer/frontend/__pycache__/
+
+Test/
+
+musicplayer/media/
+
+musicplayer/db\.sqlite3
+
+musicplayer/musics/__pycache__/
+
+musicplayer/musics/migrations/
