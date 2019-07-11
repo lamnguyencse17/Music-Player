@@ -9,24 +9,24 @@ export class Sidenav extends Component {
         role="navigation"
         style={{ height: "100%" }}
       >
-        <div class="navbar-header" style={{textAlign: "center"}}>
-          <a class="navbar-brand" href="#">
+        <div className="navbar-header" style={{textAlign: "center"}}>
+          <a className="navbar-brand" href="#">
             Spotify
           </a>
         </div>
-        <li class="list-group-item list-group-item-action">
-          <a class="nav-link active" href="#">
-            <span class="media-body">Home</span>
+        <li className="list-group-item list-group-item-action">
+          <a className="nav-link active" href="#">
+            <span className="media-body">Home</span>
           </a>
         </li>
-        <li class="list-group-item list-group-item-action">
-          <a class="nav-link active" href="#">
-            <span class="media-body">Search</span>
+        <li className="list-group-item list-group-item-action">
+          <a className="nav-link active" href="#">
+            <span className="media-body">Search</span>
           </a>
         </li>
-        <li class="list-group-item list-group-item-action">
-          <a class="nav-link active" href="#">
-            <span class="media-body">Library</span>
+        <li className="list-group-item list-group-item-action">
+          <a className="nav-link active" href="#">
+            <span className="media-body">Library</span>
           </a>
         </li>
       </aside>

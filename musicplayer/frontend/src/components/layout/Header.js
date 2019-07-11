@@ -3,24 +3,24 @@ import React, { Component } from "react";
 export class Header extends Component {
   render() {
     return (
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link" href="#">
+      <ul className="nav nav-pills nav-fill">
+        <li className="nav-item">
+          <a className="nav-link" href="#">
             Charts
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
+        <li className="nav-item">
+          <a className="nav-link" href="#">
             Downloads
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
+        <li className="nav-item">
+          <a className="nav-link" href="#">
             Profile
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
+        <li className="nav-item">
+          <a className="nav-link" href="#">
             Settings
           </a>
         </li>

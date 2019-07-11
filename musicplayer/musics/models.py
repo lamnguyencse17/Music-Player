@@ -7,7 +7,7 @@ class Album(models.Model):
     date = models.DateTimeField("Release Date", auto_now=False, auto_now_add=False, blank=True, null=True, default=None)
 
     def __str__(self):
-        return self.album
+        return self.name
 
     def save(self, *args, **kwargs):
         self.name = self.name.title()
