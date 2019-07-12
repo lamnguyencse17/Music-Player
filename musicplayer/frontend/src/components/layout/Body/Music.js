@@ -14,27 +14,15 @@ export class Music extends Component {
   }
   static propTypes = {
     musics: PropTypes.array.isRequired,
-    getMusics: PropTypes.func.isRequired
+    getMusics: PropTypes.func.isRequired,
+    playMusics: PropTypes.func.isRequired
   };
   componentDidMount() {
     this.props.getMusics();
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({ clicked: this.updateState(nextProps) });
-  }
   buttonClicked(song) {
     this.props.playMusics(song);
-  }
-  updateState(prop) {
-    var dict = {};
-    prop.musics.map(song => {
-      if (song.song === prop.playing) {
-        dict[song.song] = true;
-      } else {
-        dict[song.song] = false;
-      }
-    });
-    return dict;
+    this.forceUpdate();
   }
   render() {
     return (
@@ -49,7 +37,7 @@ export class Music extends Component {
                 {this.props.musics.map(music => (
                   <tr key={music.song}>
                     <td>
-                      {this.state.clicked[music.song] ? (
+                      {music.playing ? (
                         <MdPauseCircleFilled
                           size={28}
                           onClick={this.buttonClicked.bind(this, music.song)}

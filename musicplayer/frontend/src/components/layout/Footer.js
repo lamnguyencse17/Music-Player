@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-
+import Control from "./Footer/Control";
 export class Footer extends Component {
   render() {
     return (
       <div>
-        <footer className="page-footer font-small light pt-4">
+        <footer className="page-footer font-small light">
           <div className="row">
             <div className="col-sm-4">
               <h3>Detail</h3>
             </div>
             <div className="col-sm-4">
-              <h3>Control</h3>
+              <Control/>
             </div>
             <div className="col-sm-4">
               <h3>Volume</h3>

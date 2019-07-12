@@ -1,29 +1,38 @@
 import { GET_MUSICS, PLAY_MUSICS } from "../actions/types.js";
-import { object } from "prop-types";
+
 const initialState = {
   musics: [],
-  playing: null
+  playing: false,
+  playMode: "sequential",
 };
 
 export default function(state = initialState, action) {
+    let newpayload;
   switch (action.type) {
     case GET_MUSICS:
+
+      newpayload = action.payload;
+      newpayload.forEach(item => {
+        item.playing = false;
+      });
+      
       return {
         ...state,
-        musics: action.payload
+        musics: newpayload
       };
     case PLAY_MUSICS:
-      if (action.payload === state.playing) {
+        newpayload = state.musics;
+        newpayload.forEach(item => {
+          if (item.song === action.payload){
+              item.playing = !item.playing
+          }
+        });
+        console.log(newpayload)
         return {
           ...state,
-          playing: null
+          musics: newpayload,
+          playing: !playing
         };
-      } else {
-        return {
-          ...state,
-          playing: action.payload
-        };
-      }
     default:
       return state;
   }

@@ -12,7 +12,7 @@ class App extends Component {
   render() {
       return (<Provider store={store}>
         <Fragment>
-          <div className="row" style={{"height": "93%", "width": "100%"}}>
+          <div className="row" style={{"height": "96%", "width": "100%"}}>
             <div className="col-sm-2" style={{"paddingRight": "0", "height": "100%"}}>
               <Sidenav />
             </div>
