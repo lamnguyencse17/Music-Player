@@ -9,7 +9,7 @@ export class Sidenav extends Component {
         role="navigation"
         style={{ height: "100%" }}
       >
-        <div className="navbar-header" style={{textAlign: "center"}}>
+        <div className="navbar-header" style={{ textAlign: "center" }}>
           <a className="navbar-brand" href="#">
             Spotify
           </a>

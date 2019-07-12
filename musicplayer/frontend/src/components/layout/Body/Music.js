@@ -6,9 +6,11 @@ import { bindActionCreators } from "redux";
 import { MdPlayCircleFilled, MdPauseCircleFilled } from "react-icons/md";
 
 export class Music extends Component {
-  constructor() {
-    super();
-    this.state = { icon: true };
+  constructor(props) {
+    super(props);
+    this.state = {
+      clicked: {}
+    };
   }
   static propTypes = {
     musics: PropTypes.array.isRequired,
@@ -16,25 +18,25 @@ export class Music extends Component {
   };
   componentDidMount() {
     this.props.getMusics();
-    state = this.props.state
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ clicked: this.updateState(nextProps) });
   }
   buttonClicked(song) {
     this.props.playMusics(song);
-    // GO HOME AND FIX THIS
+  }
+  updateState(prop) {
+    var dict = {};
+    prop.musics.map(song => {
+      if (song.song === prop.playing) {
+        dict[song.song] = true;
+      } else {
+        dict[song.song] = false;
+      }
+    });
+    return dict;
   }
   render() {
-    /*     let toggle = song => {
-      if (song === this.props.playing ){
-        return <MdPauseCircleFilled
-        size={28}
-        onClick={this.buttonClicked.bind(this, song)}
-      />
-      }
-      else return <MdPlayCircleFilled
-      size={28}
-      onClick={this.buttonClicked.bind(this, song)}
-    />
-    }; */
     return (
       <div className="container">
         <div className="row">
@@ -45,25 +47,19 @@ export class Music extends Component {
             <table className="table table-hover table-borderless">
               <tbody>
                 {this.props.musics.map(music => (
-
                   <tr key={music.song}>
                     <td>
-                    <MdPlayCircleFilled
-                          size={28}
-                          onClick={this.buttonClicked.bind(this, music.song)}
-                        />
-                      {/* {toggle(music.song)} */}
-                      {/* {this.state.clicked ? (
+                      {this.state.clicked[music.song] ? (
                         <MdPauseCircleFilled
                           size={28}
-                          onClick={this.buttonClicked.bind(this, song)}
+                          onClick={this.buttonClicked.bind(this, music.song)}
                         />
                       ) : (
                         <MdPlayCircleFilled
                           size={28}
-                          onClick={this.buttonClicked.bind(this, song)}
+                          onClick={this.buttonClicked.bind(this, music.song)}
                         />
-                      )} */}
+                      )}
                     </td>
                     <td>{music.song}</td>
                     <td>{music.duration}</td>
@@ -77,7 +73,6 @@ export class Music extends Component {
     );
   }
 }
-
 function mapStateToProps(state) {
   return {
     musics: state.musics.musics,

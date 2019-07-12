@@ -9,6 +9,5 @@ export const getMusics = () => dispatch => {
 }
 
 export const playMusics = (song) => dispatch => {
-    console.log(song)
     dispatch({type: PLAY_MUSICS, payload: song})
 }
