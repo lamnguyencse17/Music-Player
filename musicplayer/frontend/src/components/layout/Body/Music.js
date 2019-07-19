@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getMusics, playMusics, nextSong } from "../../../actions/musics";
+import { getMusics, playMusics} from "../../../actions/musics";
 import { bindActionCreators } from "redux";
 import { MdPlayCircleFilled, MdPauseCircleFilled } from "react-icons/md";
 

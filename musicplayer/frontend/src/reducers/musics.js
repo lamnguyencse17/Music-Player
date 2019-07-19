@@ -6,13 +6,50 @@ import {
   PREV_SONG,
   SHUFFLE_SONG
 } from "../actions/types.js";
+class Queue {
+  constructor() {
+    this.data = [];
+    this.size = 0;
+  }
+  isEmpty() {
+    return this.size === 0;
+  }
 
+  enqueue(item) {
+    this.data.push(item);
+    return true;
+  }
+
+  dequeue(item) {
+    if (this.isEmpty()) return undefined;
+
+    return this.data.shift();
+  }
+
+  front() {
+    if (this.isEmpty()) return undefined;
+
+    return this.data[0];
+  }
+
+  rear() {
+    if (this.isEmpty()) return undefined;
+
+    return this.data[this.size - 1];
+  }
+
+  clear() {
+    this.data.length = 0;
+    this.size = 0;
+  }
+}
 const initialState = {
   lastplayed: "",
   musics: [],
   playing: false,
   playMode: 0, // 0 is no repeat, 1 is repeat all, 2 is repeat one
-  shuffle: false
+  shuffle: false,
+  queue: new Queue()
 };
 
 export default function(state = initialState, action) {
@@ -21,13 +58,16 @@ export default function(state = initialState, action) {
   let index;
   switch (action.type) {
     case GET_MUSICS:
+      var newqueue = new Queue();
       newpayload = action.payload;
       newpayload.forEach(item => {
+        newqueue.enqueue(item.song);
         item.playing = false;
       });
 
       return {
         ...state,
+        queue: newqueue,
         musics: newpayload
       };
     case PLAY_MUSICS:
@@ -64,7 +104,7 @@ export default function(state = initialState, action) {
             // play
             newlastplayed = item.song;
             item.playing = !item.playing;
-            newplaying = !state.playing;
+            newplaying = true;
           }
           if (state.lastplayed !== "") {
             // toggle old playlist song

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Control from "./Footer/Control";
+import Detail from "./Footer/Detail";
+import Volume from "./Footer/Volume";
 export class Footer extends Component {
   render() {
     return (
@@ -7,13 +9,13 @@ export class Footer extends Component {
         <footer className="page-footer font-small light">
           <div className="row">
             <div className="col-sm-4">
-              <h3>Detail</h3>
+              <Detail />
             </div>
             <div className="col-sm-4">
-              <Control/>
+              <Control />
             </div>
             <div className="col-sm-4">
-              <h3>Volume</h3>
+              <Volume />
             </div>
           </div>
         </footer>
