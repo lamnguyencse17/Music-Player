@@ -14,3 +14,9 @@ musicplayer/db\.sqlite3
 musicplayer/musics/__pycache__/
 
 musicplayer/musics/migrations/
+
+musicplayer/accounts/__pycache__/
+
+musicplayer/accounts/migrations/
+
+musicplayer/frontend/static/frontend/main\.js
