@@ -6,7 +6,8 @@ import {
   CHANGE_REPEAT,
   NEXT_SONG,
   PREV_SONG,
-  SHUFFLE_SONG
+  SHUFFLE_SONG,
+  VOLUME_CHANGE
 } from "./types";
 
 export const getMusics = () => dispatch => {
@@ -36,4 +37,7 @@ export const prevSong = () => dispatch => {
 
 export const shuffleSong = () => dispatch => {
   dispatch({ type: SHUFFLE_SONG });
+};
+export const changeVolume = volume => dispatch => {
+  dispatch({ type: VOLUME_CHANGE, payload: volume });
 };

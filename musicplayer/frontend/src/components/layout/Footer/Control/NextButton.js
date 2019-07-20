@@ -11,7 +11,7 @@ export class NextButton extends Component {
     playing: PropTypes.bool.isRequired,
     playMode: PropTypes.number.isRequired,
     shuffle: PropTypes.bool.isRequired,
-    lastplayed: PropTypes.string.isRequired,
+    lastplayed: PropTypes.object,
     nextSong: PropTypes.func.isRequired
   };
   nextClicked() {
