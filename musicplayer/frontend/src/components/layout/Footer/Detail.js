@@ -8,13 +8,13 @@ export class Detail extends Component {
     playing: PropTypes.bool.isRequired,
     playMode: PropTypes.number.isRequired,
     shuffle: PropTypes.bool.isRequired,
-    lastplayed: PropTypes.string.isRequired
+    lastplayed: PropTypes.object
   };
   render() {
     return (
       <div className="row">
         <div className="col">
-          {this.props.lastplayed}
+          {/* {this.props.lastplayed.song} */}
         </div>
         <div className="w-100" />
         <div className="col">

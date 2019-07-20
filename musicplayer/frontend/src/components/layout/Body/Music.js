@@ -17,7 +17,7 @@ export class Music extends Component {
     playing: PropTypes.bool.isRequired,
     playMode: PropTypes.number.isRequired,
     shuffle: PropTypes.bool.isRequired,
-    lastplayed: PropTypes.string.isRequired,
+    lastplayed: PropTypes.object.isRequired,
     getMusics: PropTypes.func.isRequired,
     playMusics: PropTypes.func.isRequired
   };
