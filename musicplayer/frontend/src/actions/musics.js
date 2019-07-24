@@ -7,7 +7,8 @@ import {
   NEXT_SONG,
   PREV_SONG,
   SHUFFLE_SONG,
-  VOLUME_CHANGE
+  VOLUME_CHANGE,
+  UPDATE_PROGRESS
 } from "./types";
 
 export const getMusics = () => dispatch => {
@@ -41,3 +42,6 @@ export const shuffleSong = () => dispatch => {
 export const changeVolume = volume => dispatch => {
   dispatch({ type: VOLUME_CHANGE, payload: volume });
 };
+export const updateProgress = position => dispatch => {
+  dispatch({ type: UPDATE_PROGRESS, payload: position })
+}
