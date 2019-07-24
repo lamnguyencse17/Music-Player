@@ -18,7 +18,7 @@ export class Volume extends Component {
       <div style={{ "width": "5vw" }}>
         <Grid container spacing={2}>
           <Grid item xs>
-            <Slider value="100" onChange={this.handleChange.bind(this)} aria-labelledby="continuous-slider" />
+            <Slider defaultValue="100" onChange={this.handleChange.bind(this)} aria-labelledby="continuous-slider" />
           </Grid>
         </Grid>
       </div>

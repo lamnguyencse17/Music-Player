@@ -7,6 +7,7 @@ import ShuffleButton from "./Control/ShuffleButton";
 import Player from "./Control/Player"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {ProgressBar} from 'react-bootstrap';
 
 export class Control extends Component {
   static propTypes = {
@@ -16,8 +17,8 @@ export class Control extends Component {
     shuffle: PropTypes.bool.isRequired,
     lastplayed: PropTypes.object.isRequired,
   };
-  playClick
   render() {
+
     return (
       <div className="row">
         <div className="col">
@@ -29,6 +30,7 @@ export class Control extends Component {
               <PrevButton />
             </div>
             <div className="col-4">
+
               <PlayButton />
             </div>
 
@@ -43,7 +45,7 @@ export class Control extends Component {
         </div>
         <div className="w-100" />
         <div className="col">
-          {this.props.playing ? <Player/> : <div></div>}
+          {this.props.playing ? <div><Player /><ProgressBar now={this.props.progress} /></div> : <div></div>}
         </div>
       </div>
     );
@@ -56,7 +58,8 @@ function mapStateToProps(state) {
     playing: state.musics.playing,
     playMode: state.musics.playMode,
     shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed
+    lastplayed: state.musics.lastplayed,
+    progress: state.musics.progress
   };
 }
 export default connect(mapStateToProps)(Control);

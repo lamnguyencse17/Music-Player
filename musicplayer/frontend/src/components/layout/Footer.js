@@ -12,7 +12,7 @@ export class Footer extends Component {
               <Detail />
             </div>
             <div className="col-sm-4">
-              <Control />
+              <Control />   
             </div>
             <div className="col-sm-4">
               <Volume />

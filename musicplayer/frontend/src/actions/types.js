@@ -5,3 +5,4 @@ export const NEXT_SONG = "NEXT_SONG";
 export const PREV_SONG = "PREV_SONG";
 export const SHUFFLE_SONG = "SHUFFLE_SONG";
 export const VOLUME_CHANGE = "VOLUME_CHANGE";
+export const UPDATE_PROGRESS = "UPDATE_PROGRESS";
