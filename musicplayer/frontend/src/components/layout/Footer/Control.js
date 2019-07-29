@@ -4,10 +4,10 @@ import NextButton from "./Control/NextButton";
 import PrevButton from "./Control/PrevButton";
 import RepeatButton from "./Control/RepeatButton";
 import ShuffleButton from "./Control/ShuffleButton";
+import SlideBar from "./Control/SlideBar";
 import Player from "./Control/Player"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {ProgressBar} from 'react-bootstrap';
 
 export class Control extends Component {
   static propTypes = {
@@ -45,7 +45,8 @@ export class Control extends Component {
         </div>
         <div className="w-100" />
         <div className="col">
-          {this.props.playing ? <div><Player /><ProgressBar now={this.props.progress} /></div> : <div></div>}
+          <Player />
+          <SlideBar/>
         </div>
       </div>
     );

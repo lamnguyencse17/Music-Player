@@ -29,7 +29,8 @@ function mapStateToProps(state) {
     playing: state.musics.playing,
     playMode: state.musics.playMode,
     shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed
+    lastplayed: state.musics.lastplayed,
+    progress: state.musics.progress
   };
 }
 function mapDispatchToProps(dispatch) {

@@ -10,7 +10,8 @@ export class Player extends Component {
     super(props);
     this.state = {
       position: null,
-      lastprogress: 0
+      lastprogress: 0,
+      pause: ""
     }
   }
   static propTypes = {
@@ -24,8 +25,15 @@ export class Player extends Component {
     this.props.nextSong();
   }
   getPlaying(song){
-    if (Math.floor(song.position*100 / song.duration) !== this.props.progress){
-      if (this.state.lastprogress !== this.props.progress && this.props.progress === 0){
+    if (isNaN(this.props.progress) === false && this.props.progress % 1 !== 0){ // play from click
+      this.setState({position: this.props.progress/100*song.duration})
+      this.setState({position: null})
+      this.props.updateProgress(Math.floor(this.state.position*100 / song.duration))
+      this.setState({lastprogress: this.props.progress})
+      return;
+    }
+    if (Math.floor(song.position*100 / song.duration) !== this.props.progress){ // update if position increment 1%
+      if (this.state.lastprogress !== this.props.progress && this.props.progress === 0){ // restart song
         this.setState({position: 0})
         this.setState({position: null})
       }
@@ -34,10 +42,9 @@ export class Player extends Component {
     }
   }
   render() {
-    return (
-      <div>
-        <Sound url={this.props.lastplayed.source} playFromPosition={this.state.position} onPlaying={this.getPlaying.bind(this)} autoLoad={1} onFinishedPlaying={this.handleFinished.bind(this)} volume={this.props.volume} playStatus={this.props.playing ? Sound.status.PLAYING : Sound.status.PAUSED} onError={this.ErrorHandling} />
-      </div>
+    return (<div>
+      <Sound url={this.props.lastplayed.source} playFromPosition={this.state.position} onPlaying={this.getPlaying.bind(this)} onFinishedPlaying={this.handleFinished.bind(this)} volume={this.props.volume} playStatus={this.props.playing ? Sound.status.PLAYING : Sound.status.PAUSED} onError={this.ErrorHandling} />
+    </div>
     );
   }
 }
