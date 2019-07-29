@@ -8,45 +8,9 @@ import {
   VOLUME_CHANGE,
   UPDATE_PROGRESS
 } from "../actions/types.js";
+import Queue from "../structures/Queue"
 //Queue structure to make the playlist history 
 //for previous button song as well as all the function
-class Queue {
-  constructor() {
-    this.data = [];
-    this.size = 0;
-  }
-  isEmpty() {
-    return this.size === 0;
-  }
-
-  enqueue(item) {
-    this.data.push(item);
-    return true;
-  }
-
-  dequeue(item) {
-    if (this.isEmpty()) return undefined;
-
-    return this.data.shift();
-  }
-
-  front() {
-    if (this.isEmpty()) return undefined;
-
-    return this.data[0];
-  }
-
-  rear() {
-    if (this.isEmpty()) return undefined;
-
-    return this.data[this.size - 1];
-  }
-
-  clear() {
-    this.data.length = 0;
-    this.size = 0;
-  }
-}
 const initialState = {
   lastplayed: {},
   musics: [],
@@ -64,23 +28,19 @@ export default function (state = initialState, action) {
   let index;
   let newplaying;
   let newprogress;
+  let newqueue;
   switch (action.type) {
     case GET_MUSICS:
-      var newqueue = new Queue();
       newpayload = action.payload;
-      newpayload.forEach(item => {
-        newqueue.enqueue(item.song);
-        item.playing = false;
-      });
-
       return {
         ...state,
-        queue: newqueue,
-        musics: newpayload
+        musics: action.payload
       };
     case PLAY_MUSICS:
       newpayload = state.musics;
       if (Object.keys(state.lastplayed).length === 0 && state.lastplayed.constructor === Object && action.payload === null) { // play first
+        newqueue = state.queue;
+        newqueue.push(newpayload[0].song)
         newpayload[0].playing = true;
         newplaying = true;
         newlastplayed = newpayload[0];
@@ -88,18 +48,28 @@ export default function (state = initialState, action) {
       else {
         newpayload.forEach(item => {
           if (Object.keys(state.lastplayed).length !== 0) {//toggle 1 song
-            if (item.song === state.lastplayed.song){
+            if (item.song === state.lastplayed.song) {
+              console.log(item.playing + "\n" + state.playing)
               newplaying = !item.playing;
-            newpayload[newpayload.indexOf(item)].playing = !state.playing
-            newlastplayed = item;
-            if (action.payload !== null && action.payload !== state.lastplayed.song) {
-              newpayload[newpayload.indexOf(action.payload)].playing = true;
-            }
+              newpayload[newpayload.indexOf(item)].playing = !state.playing
+              newlastplayed = item;
+              if (action.payload !== null && action.payload !== state.lastplayed.song) {
+                if (item.song === state.lastplayed.song) {
+                  newpayload.forEach(payload => {
+                    if (payload.song === action.payload) {
+                      newplaying = true;
+                      newpayload[newpayload.findIndex(payload => payload.song === action.payload)].playing = true;
+                      newpayload[newpayload.indexOf(item)].playing = false;
+                      newlastplayed = newpayload[newpayload.findIndex(payload => payload.song === action.payload)]
+                    }
+                  })
+                }
+              }
             }
           }
           else {
             newpayload.forEach(payload => {
-              if (payload.song === action.payload){
+              if (payload.song === action.payload) {
                 newpayload[newpayload.findIndex(payload => payload.song === action.payload)].playing = true;
                 newlastplayed = newpayload[newpayload.findIndex(payload => payload.song === action.payload)]
               }
@@ -108,6 +78,10 @@ export default function (state = initialState, action) {
           }
         })
       }
+        newqueue = state.queue;
+        if (newqueue.rear() !== newlastplayed.song){
+          newqueue.push(newlastplayed.song)
+        }
       return {
         ...state,
         lastplayed: newlastplayed,
@@ -146,8 +120,9 @@ export default function (state = initialState, action) {
               } else {
                 // it's the last song so return to the first
                 newpayload[index].playing = false;
-                newplaying = false
-                newlastplayed = item;
+                newpayload[0].playing = true;
+                newplaying = true
+                newlastplayed = newpayload[0];
               }
             } else {
               // shuffle is on
@@ -193,46 +168,40 @@ export default function (state = initialState, action) {
         }
         newplaying = true
       });
+      if (state.playMode !== 2){
+        newqueue = state.queue;
+        if (newqueue.rear() !== newlastplayed.song){
+          newqueue.push(newlastplayed.song)
+        }
+      }
       return {
         ...state,
-        musics: newpayload,
+        musics: newpayload,  
         playing: newplaying,
         lastplayed: newlastplayed,
         progress: newprogress
       };
     case PREV_SONG: // #TODO: Implement the real PREV_SONG after doing the music queue.
       newpayload = state.musics;
-      newpayload.forEach(item => {
-        if (item.song === state.lastplayed.song && state.lastplayed !== {}) {
-          // make sure that something is playing and check for lastplayed
-          index = newpayload.indexOf(item);
-          if (state.shuffle === false) {
-            // shuffle is off
-            if (index + 1 < newpayload.length) {
-              // check if it's last song
-              newpayload[index].playing = false;
-              newpayload[index + 1].playing = true;
-              newlastplayed = newpayload[index + 1];
-            } else {
-              // it's last song so return to the first
-              newpayload[index].playing = false;
-              newpayload[0].playing = true;
-              newlastplayed = newpayload[0];
-            }
-          } else {
-            // shuffle is on
-            let newindex = Math.floor(Math.random() * newpayload.length); // generate next random song index
-            newpayload[index].playing = false;
-            newpayload[newindex].playing = true;
-            newlastplayed = newpayload[newindex];
-          }
-        }
-      });
+      newqueue = state.queue;
+      newpayload[newpayload.findIndex(music => music.song === newqueue.rear())].playing = false;
+      if (newqueue.getSize() > 1){
+        newqueue.pop();
+      index = newpayload.findIndex(music => music.song === newqueue.rear())
+      newpayload[index].playing = true;
+      newlastplayed = newpayload[index];
+      }
+      else {
+        newpayload[newpayload.findIndex(music => music.song === newqueue.front())].playing = true;
+        newlastplayed = state.lastplayed
+      }
+      newprogress = 0;
       return {
         ...state,
         musics: newpayload,
         playing: true,
-        lastplayed: newlastplayed
+        lastplayed: newlastplayed,
+        progress: newprogress
       };
     case VOLUME_CHANGE:
       return {

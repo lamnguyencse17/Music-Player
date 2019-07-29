@@ -1,4 +1,4 @@
-class Queue {
+export default class Queue {
     constructor() {
       this.data = [];
       this.size = 0;
@@ -6,16 +6,19 @@ class Queue {
     isEmpty() {
       return this.size === 0;
     }
-  
-    enqueue(item) {
+    getSize() {
+      return this.size
+    }
+    push(item) {
       this.data.push(item);
+      this.size = this.size + 1;
       return true;
     }
   
-    dequeue(item) {
+    pop() {
       if (this.isEmpty()) return undefined;
-  
-      return this.data.shift();
+      this.size = this.size - 1;
+      return this.data.pop();
     }
   
     front() {
@@ -29,7 +32,6 @@ class Queue {
   
       return this.data[this.size - 1];
     }
-  
     clear() {
       this.data.length = 0;
       this.size = 0;
