@@ -1,5 +1,6 @@
 from django.db import models
 from .choices import *
+import uuid
 
 
 class Album(models.Model):
@@ -24,6 +25,7 @@ class Artist(models.Model):
         super().save(*args, **kwargs)
 
 class Music(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     song = models.CharField(max_length=100, default="Unknown Song")
     artist = models.ManyToManyField(Artist, related_name="performs")
     duration = models.IntegerField(default=0)

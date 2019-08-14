@@ -8,7 +8,13 @@ import {
   PREV_SONG,
   SHUFFLE_SONG,
   VOLUME_CHANGE,
-  UPDATE_PROGRESS
+  UPDATE_PROGRESS,
+  UPLOAD_SONG,
+  PROCESS_UPLOAD,
+  EDIT_SONG,
+  PROCESS_EDIT,
+  DELETE_SONG,
+  PROCESS_DELETE
 } from "./types";
 
 export const getMusics = () => dispatch => {
@@ -44,4 +50,62 @@ export const changeVolume = volume => dispatch => {
 };
 export const updateProgress = position => dispatch => {
   dispatch({ type: UPDATE_PROGRESS, payload: position })
+}
+export const uploadSong = () => dispatch => {
+  dispatch({ type: UPLOAD_SONG });
+};
+export const processUpload = (uploadForm) => dispatch => {
+  var formData = new FormData();
+  formData.append("source", uploadForm.source[0]);
+  formData.append("song", uploadForm.title);
+  formData.append("artist", uploadForm.artist);
+  formData.append("genre", uploadForm.genre)
+  formData.append("album", "Unknown Album")
+  axios.defaults.xsrfCookieName = 'csrftoken';
+  axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+  axios.post("/api/musics/", formData, {
+    headers: {
+      "Accept": "*/*",
+      "Content-Type": "multipart/form-data",
+      "Cache-Control": "no-cache",
+    }
+  }).then(res => {
+    dispatch({ type: PROCESS_UPLOAD, payload: res.data });
+  }).catch(err => console.log(err))
+}
+export const editSong = () => dispatch => {
+  dispatch({ type: EDIT_SONG });
+};
+export const processEdit = (index, editForm, original) => dispatch => {
+  var formData = new FormData();
+  for (var key in editForm) {
+    formData.append(key, editForm[key]);
+  }
+  var url = "/api/musics/" + String(original.id) + "/";
+  axios.defaults.xsrfCookieName = 'csrftoken';
+  axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+  axios.patch(url, formData, {
+    headers: {
+      "Accept": "*/*",
+      "Content-Type": "multipart/form-data",
+      "Cache-Control": "no-cache",
+    }
+  }).then(res => {
+    dispatch({ type: PROCESS_EDIT, payload: res.data });
+  }).catch(err => console.log(err))
+}
+export const deleteSong = () => dispatch => {
+  dispatch({ type: DELETE_SONG })
+}
+export const processDelete = (id) => dispatch => {
+  var url = "/api/musics/" + String(id) + "/";
+  axios.defaults.xsrfCookieName = 'csrftoken';
+  axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+  axios.delete(url, {
+    headers: {
+      "Accept": "*/*",
+      "Content-Type": "multipart/form-data",
+      "Cache-Control": "no-cache",    
+    }
+  }).then(dispatch({ type: PROCESS_DELETE, payload: id })).catch(err => console.log(err))
 }
