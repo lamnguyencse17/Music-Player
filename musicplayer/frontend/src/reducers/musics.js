@@ -6,7 +6,13 @@ import {
   PREV_SONG,
   SHUFFLE_SONG,
   VOLUME_CHANGE,
-  UPDATE_PROGRESS
+  UPDATE_PROGRESS,
+  UPLOAD_SONG,
+  PROCESS_UPLOAD,
+  EDIT_SONG,
+  PROCESS_EDIT,
+  DELETE_SONG,
+  PROCESS_DELETE
 } from "../actions/types.js";
 import playMusics from "./cases/playMusics"
 import nextSong from "./cases/nextSong"
@@ -22,7 +28,10 @@ const initialState = {
   shuffle: false,
   queue: new Queue(),
   volume: 100,
-  progress: 0
+  progress: 0,
+  upload: false,
+  edit: false,
+  delete: false,
 };
 
 export default function (state = initialState, action) {
@@ -64,6 +73,44 @@ export default function (state = initialState, action) {
         ...state,
         progress: action.payload
       }
+    case UPLOAD_SONG:
+      return {
+        ...state,
+        upload: !state.upload
+      }
+    case PROCESS_UPLOAD:
+      var newmusic = state.musics;
+      newmusic.push(action.payload)
+      return {
+        ...state,
+        musics: newmusic,
+        upload: !state.upload
+      }
+      case EDIT_SONG:
+        return {
+          ...state,
+          edit: !state.edit
+        }
+      case PROCESS_EDIT:
+        var newstate = state.musics
+        newstate[newstate.findIndex(music => music.id === action.payload.id)] = action.payload
+        return {
+          ...state,
+          musics: newstate,
+          edit: !state.edit
+        }
+      case DELETE_SONG:
+        return {
+          ...state,
+          delete: !state.delete
+        }
+        case PROCESS_DELETE:
+          console.log(state.musics.filter(music => music.id !== action.payload))
+          return {
+            ...state,
+            musics: state.musics.filter(music => music.id !== action.payload),
+            delete: !state.delete
+          }
     default:
       return state;
   }
