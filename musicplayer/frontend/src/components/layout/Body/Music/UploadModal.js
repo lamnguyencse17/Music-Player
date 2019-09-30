@@ -23,7 +23,9 @@ export class UploadModal extends Component {
     }
     handleUpload = e => {
         e.preventDefault();
-        this.props.processUpload(this.state)
+        uploaddata = this.state;
+        uploaddata.album = this.props.album.name;
+        this.props.processUpload(uploaddata)
     }
     render() {
         const { title, artist, genre} = this.state
@@ -84,7 +86,8 @@ export class UploadModal extends Component {
 function mapStateToProps(state) {
     return {
         upload: state.musics.upload,
-        musics: state.musics.musics
+        musics: state.musics.musics,
+        album: state.musics.album
     };
 } function mapDispatchToProps(dispatch) {
     return bindActionCreators({ uploadSong, processUpload }, dispatch);

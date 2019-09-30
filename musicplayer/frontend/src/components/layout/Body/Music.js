@@ -7,6 +7,7 @@ import { MdPlayCircleFilled, MdPauseCircleFilled} from "react-icons/md";
 import UploadModal from "./Music/UploadModal"
 import EditModal from "./Music/EditModal";
 import DeleteModal from "./Music/DeleteModal";
+import Album from "./Music/Album";
 export class Music extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +47,7 @@ export class Music extends Component {
         <div className="row">
           <div className="col-sm-5">
             <div className="row">
-              <div className="col-sm-7" style={{ paddingRight: "0", marginRight: "0" }}><h2>Album Cover</h2></div>
+              <div className="col-sm-7" style={{ paddingRight: "0", marginRight: "0" }}><Album/></div>
               <div className="col-sm-5 align-self-center" style={{ paddingLeft: "0" }}>
                 <input type="file" id="file" style={{ display: "none" }} />
                 <button type="button" className="btn btn-outline-dark btn-sm" onClick={this.uploadBtn.bind(this)}>Add Songs</button>

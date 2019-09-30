@@ -2,6 +2,7 @@ import axios from "axios";
 
 import {
   GET_MUSICS,
+  GET_ALBUM,
   PLAY_MUSICS,
   CHANGE_REPEAT,
   NEXT_SONG,
@@ -25,6 +26,14 @@ export const getMusics = () => dispatch => {
     })
     .catch(err => console.log(err));
 };
+export const getAlbum = () => dispatch => {
+  axios
+    .get("/api/album/")
+    .then(res=> {
+      dispatch({type: GET_ALBUM, payload: res.data[0] });
+    })
+
+}
 
 export const playMusics = song => dispatch => {
   dispatch({ type: PLAY_MUSICS, payload: song });
@@ -60,7 +69,7 @@ export const processUpload = (uploadForm) => dispatch => {
   formData.append("song", uploadForm.title);
   formData.append("artist", uploadForm.artist);
   formData.append("genre", uploadForm.genre)
-  formData.append("album", "Unknown Album")
+  formData.append("album", uploadForm.name)
   axios.defaults.xsrfCookieName = 'csrftoken';
   axios.defaults.xsrfHeaderName = 'X-CSRFToken';
   axios.post("/api/musics/", formData, {

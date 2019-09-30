@@ -1,5 +1,6 @@
 import {
   GET_MUSICS,
+  GET_ALBUM,
   PLAY_MUSICS,
   CHANGE_REPEAT,
   NEXT_SONG,
@@ -12,7 +13,7 @@ import {
   EDIT_SONG,
   PROCESS_EDIT,
   DELETE_SONG,
-  PROCESS_DELETE
+  PROCESS_DELETE,
 } from "../actions/types.js";
 import playMusics from "./cases/playMusics"
 import nextSong from "./cases/nextSong"
@@ -32,6 +33,7 @@ const initialState = {
   upload: false,
   edit: false,
   delete: false,
+  album: {},
 };
 
 export default function (state = initialState, action) {
@@ -39,8 +41,13 @@ export default function (state = initialState, action) {
     case GET_MUSICS:
       return {
         ...state,
-        musics: action.payload
+        musics: action.payload,
     };
+    case GET_ALBUM:
+      return {
+        ...state,
+        album: action.payload,
+      };
     case PLAY_MUSICS:
       return playMusics(state, action.payload)
     case CHANGE_REPEAT:
@@ -67,50 +74,50 @@ export default function (state = initialState, action) {
       return {
         ...state,
         volume: action.payload
-      }
+      };
     case UPDATE_PROGRESS:
       return {
         ...state,
         progress: action.payload
-      }
+      };
     case UPLOAD_SONG:
       return {
         ...state,
         upload: !state.upload
-      }
+      };
     case PROCESS_UPLOAD:
-      var newmusic = state.musics;
+      let newmusic = state.musics;
       newmusic.push(action.payload)
       return {
         ...state,
         musics: newmusic,
         upload: !state.upload
-      }
+      };
       case EDIT_SONG:
         return {
           ...state,
           edit: !state.edit
-        }
+        };
       case PROCESS_EDIT:
-        var newstate = state.musics
+        let newstate = state.musics
         newstate[newstate.findIndex(music => music.id === action.payload.id)] = action.payload
         return {
           ...state,
           musics: newstate,
           edit: !state.edit
-        }
+        };
       case DELETE_SONG:
         return {
           ...state,
           delete: !state.delete
-        }
+        };
         case PROCESS_DELETE:
           console.log(state.musics.filter(music => music.id !== action.payload))
           return {
             ...state,
             musics: state.musics.filter(music => music.id !== action.payload),
             delete: !state.delete
-          }
+          };
     default:
       return state;
   }

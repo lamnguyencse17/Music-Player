@@ -4,8 +4,10 @@ import uuid
 
 
 class Album(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, default="Unknown Album")
     date = models.DateTimeField("Release Date", auto_now=False, auto_now_add=False, blank=True, null=True, default=None)
+    cover = models.ImageField(upload_to = 'cover/', null = True, blank = True, default=None)
 
     def __str__(self):
         return self.name
@@ -31,7 +33,6 @@ class Music(models.Model):
     duration = models.IntegerField(default=0)
     album = models.ManyToManyField(Album, null = True, blank = True, default=None, related_name="includes")
     genre = models.IntegerField(choices=GENRE_CHOICES, default=1)
-    cover = models.ImageField(upload_to = 'cover/', null = True, blank = True, default=None)
     source = models.FileField(blank = False, null=False)
 
     def __str__(self):
