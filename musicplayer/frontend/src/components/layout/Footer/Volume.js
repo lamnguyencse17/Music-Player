@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Slider from "@material-ui/core/Slider";
 import Grid from "@material-ui/core/Grid";
-import { changeVolume} from "../../../actions/musics";
+import { changeVolume} from "../../../actions/control";
 import { bindActionCreators } from "redux";
 
 export class Volume extends Component {
@@ -29,11 +29,11 @@ export class Volume extends Component {
 function mapStateToProps(state) {
   return {
     musics: state.musics.musics,
-    playing: state.musics.playing,
-    playMode: state.musics.playMode,
-    shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed,
-    volume: state.musics.volume
+    playing: state.control.playing,
+    playMode: state.control.playMode,
+    shuffle: state.control.shuffle,
+    lastplayed: state.control.lastplayed,
+    volume: state.control.volume
   };
 }
 function mapDispatchToProps(dispatch) {

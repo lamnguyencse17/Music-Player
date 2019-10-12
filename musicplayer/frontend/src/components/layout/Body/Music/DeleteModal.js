@@ -3,18 +3,18 @@ import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { deleteSong, processDelete } from "../../../../actions/musics";
+import { deleteSong, processDeleteSong } from "../../../../actions/musics";
 export class DeleteModal extends Component {
     constructor(props){
         super(props)
         var index = this.props.musics.findIndex(music => music.song === this.props.song)
-        this.state = this.props.musics[index].id
+        this.state = this.props.musics[index]
     }
     handleClose() {
         this.props.deleteSong()
     }
     proceedDelete(){
-        this.props.processDelete(this.state)
+        this.props.processDeleteSong(this.state.id)
     }
     render() {
         return (
@@ -39,7 +39,7 @@ function mapStateToProps(state) {
         musics: state.musics.musics
     };
 } function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ deleteSong, processDelete }, dispatch);
+    return bindActionCreators({ deleteSong, processDeleteSong }, dispatch);
 }
 
 export default connect(

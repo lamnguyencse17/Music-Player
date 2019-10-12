@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { MdSkipPrevious } from "react-icons/md";
 import { bindActionCreators } from "redux";
-import { prevSong } from "../../../../actions/musics";
+import { prevSong } from "../../../../actions/control";
 import PropTypes from "prop-types";
 
 export class PrevButton extends Component {
@@ -26,10 +26,10 @@ export class PrevButton extends Component {
 function mapStateToProps(state) {
   return {
     musics: state.musics.musics,
-    playing: state.musics.playing,
-    playMode: state.musics.playMode,
-    shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed
+    playing: state.control.playing,
+    playMode: state.control.playMode,
+    shuffle: state.control.shuffle,
+    lastplayed: state.control.lastplayed
   };
 }
 function mapDispatchToProps(dispatch) {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { MdSkipNext } from "react-icons/md";
 import { bindActionCreators } from "redux";
-import { nextSong } from "../../../../actions/musics";
+import { nextSong } from "../../../../actions/control";
 import PropTypes from "prop-types";
 
 export class NextButton extends Component {
@@ -26,11 +26,11 @@ export class NextButton extends Component {
 function mapStateToProps(state) {
   return {
     musics: state.musics.musics,
-    playing: state.musics.playing,
-    playMode: state.musics.playMode,
-    shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed,
-    progress: state.musics.progress
+    playing: state.control.playing,
+    playMode: state.control.playMode,
+    shuffle: state.control.shuffle,
+    lastplayed: state.control.lastplayed,
+    progress: state.control.progress
   };
 }
 function mapDispatchToProps(dispatch) {

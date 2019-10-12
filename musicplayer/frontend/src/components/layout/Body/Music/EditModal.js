@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { editSong, processEdit } from "../../../../actions/musics";
+import { editSong, processEditSong } from "../../../../actions/musics";
 export class EditModal extends Component {
     constructor(props){
         super(props)
@@ -20,7 +20,7 @@ export class EditModal extends Component {
         var editForm = { song, artist, genre}
         var index = this.props.musics.findIndex(music => music.song === this.props.song)
         console.log(index)
-        this.props.processEdit(index, editForm, this.props.musics[index]) //index + newlyEdited + Original
+        this.props.processEditSong(index, editForm, this.props.musics[index]) //index + newlyEdited + Original
     }
     render() {
         const { song, artist, genre} = this.state
@@ -76,7 +76,7 @@ function mapStateToProps(state) {
         musics: state.musics.musics
     };
 } function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ editSong, processEdit }, dispatch);
+    return bindActionCreators({ editSong, processEditSong }, dispatch);
 }
 
 export default connect(

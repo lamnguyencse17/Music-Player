@@ -1,5 +1,6 @@
-export default function playMusics(state, payload) {
-  var newpayload = state.musics;
+
+export default function playMusics(state, payload, musics) {
+  var newpayload = musics;
   var newqueue = state.queue;
   var newlastplayed = state.lastplayed
   var newplaying = state.playing

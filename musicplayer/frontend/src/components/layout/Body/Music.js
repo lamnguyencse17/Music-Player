@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getMusics, playMusics, uploadSong, editSong, processUpload, processEdit, deleteSong } from "../../../actions/musics";
+import { getMusics, uploadSong, editSong, processUpload, processEditSong, deleteSong } from "../../../actions/musics";
+import {playMusics} from "../../../actions/control";
 import { bindActionCreators } from "redux";
 import { MdPlayCircleFilled, MdPauseCircleFilled} from "react-icons/md";
 import UploadModal from "./Music/UploadModal"
@@ -122,10 +123,10 @@ export class Music extends Component {
 function mapStateToProps(state) {
   return {
     musics: state.musics.musics,
-    playing: state.musics.playing,
-    playMode: state.musics.playMode,
-    shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed,
+    playing: state.control.playing,
+    playMode: state.control.playMode,
+    shuffle: state.control.shuffle,
+    lastplayed: state.control.lastplayed,
     upload: state.musics.upload,
     edit: state.musics.edit,
     delete: state.musics.delete
@@ -133,7 +134,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getMusics, playMusics, uploadSong, processUpload, editSong, processEdit, deleteSong }, dispatch);
+  return bindActionCreators({ getMusics, playMusics, uploadSong, processUpload, editSong, processEditSong, deleteSong }, dispatch);
 }
 
 export default connect(

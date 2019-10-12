@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import { bindActionCreators } from "redux";
-import { getAlbum } from "../../../../actions/musics";
+import { getAlbum } from "../../../../actions/album";
 
 class Album extends Component {
     componentDidMount() {
@@ -18,7 +18,7 @@ class Album extends Component {
 }
 function mapStateToProps(state) {
     return {
-        album: state.musics.album
+        album: state.album.album
     };
 }
 function mapDispatchToProps(dispatch) {
