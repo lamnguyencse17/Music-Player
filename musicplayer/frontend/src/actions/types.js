@@ -1,4 +1,5 @@
 export const GET_MUSICS = "GET_MUSICS";
+export const GET_ALBUM = "GET_ALBUM";
 export const PLAY_MUSICS = "PLAY_MUSICS";
 export const CHANGE_REPEAT = "CHANGE_REPEAT";
 export const NEXT_SONG = "NEXT_SONG";
@@ -7,8 +8,9 @@ export const SHUFFLE_SONG = "SHUFFLE_SONG";
 export const VOLUME_CHANGE = "VOLUME_CHANGE";
 export const UPDATE_PROGRESS = "UPDATE_PROGRESS";
 export const UPLOAD_SONG = "UPLOAD_SONG";
-export const PROCESS_UPLOAD = "PROCESS_UPLOAD";
+export const SONG_PROCESS_UPLOAD = "SONG_PROCESS_UPLOAD";
 export const EDIT_SONG = "EDIT_SONG";
 export const PROCESS_EDIT = "PROCESS_EDIT";
 export const DELETE_SONG = "DELETE_SONG";
-export const PROCESS_DELETE = "PROCESS_DELETE";
+export const SONG_PROCESS_DELETE = "SONG_PROCESS_DELETE";
+export const UPDATE_MUSICS = "UPDATE_MUSICS";

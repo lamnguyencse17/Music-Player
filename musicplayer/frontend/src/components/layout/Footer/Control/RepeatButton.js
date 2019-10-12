@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { MdRepeat, MdRepeatOne } from "react-icons/md";
 import { bindActionCreators } from "redux";
-import { changeRepeat } from "../../../../actions/musics";
+import { changeRepeat } from "../../../../actions/control";
 import PropTypes from "prop-types";
 
 export class RepeatButton extends Component {
@@ -45,10 +45,10 @@ export class RepeatButton extends Component {
 function mapStateToProps(state) {
   return {
     musics: state.musics.musics,
-    playing: state.musics.playing,
-    playMode: state.musics.playMode,
-    shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed
+    playing: state.control.playing,
+    playMode: state.control.playMode,
+    shuffle: state.control.shuffle,
+    lastplayed: state.control.lastplayed
   };
 }
 function mapDispatchToProps(dispatch) {

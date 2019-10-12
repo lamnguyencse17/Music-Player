@@ -2,19 +2,13 @@ import axios from "axios";
 
 import {
   GET_MUSICS,
-  PLAY_MUSICS,
-  CHANGE_REPEAT,
-  NEXT_SONG,
-  PREV_SONG,
-  SHUFFLE_SONG,
-  VOLUME_CHANGE,
-  UPDATE_PROGRESS,
+  UPDATE_MUSICS,
   UPLOAD_SONG,
-  PROCESS_UPLOAD,
+  SONG_PROCESS_UPLOAD,
   EDIT_SONG,
   PROCESS_EDIT,
   DELETE_SONG,
-  PROCESS_DELETE
+  SONG_PROCESS_DELETE
 } from "./types";
 
 export const getMusics = () => dispatch => {
@@ -26,31 +20,10 @@ export const getMusics = () => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const playMusics = song => dispatch => {
-  dispatch({ type: PLAY_MUSICS, payload: song });
-};
-
-export const changeRepeat = () => dispatch => {
-  dispatch({ type: CHANGE_REPEAT });
-};
-
-export const nextSong = () => dispatch => {
-  dispatch({ type: NEXT_SONG });
-};
-
-export const prevSong = () => dispatch => {
-  dispatch({ type: PREV_SONG });
-};
-
-export const shuffleSong = () => dispatch => {
-  dispatch({ type: SHUFFLE_SONG });
-};
-export const changeVolume = volume => dispatch => {
-  dispatch({ type: VOLUME_CHANGE, payload: volume });
-};
-export const updateProgress = position => dispatch => {
-  dispatch({ type: UPDATE_PROGRESS, payload: position })
+export const updateMusics = (updatedmusics) => dispatch => {
+  dispatch({ type: UPDATE_MUSICS, payload: updatedmusics });
 }
+
 export const uploadSong = () => dispatch => {
   dispatch({ type: UPLOAD_SONG });
 };
@@ -60,7 +33,7 @@ export const processUpload = (uploadForm) => dispatch => {
   formData.append("song", uploadForm.title);
   formData.append("artist", uploadForm.artist);
   formData.append("genre", uploadForm.genre)
-  formData.append("album", "Unknown Album")
+  formData.append("album", uploadForm.name)
   axios.defaults.xsrfCookieName = 'csrftoken';
   axios.defaults.xsrfHeaderName = 'X-CSRFToken';
   axios.post("/api/musics/", formData, {
@@ -70,13 +43,13 @@ export const processUpload = (uploadForm) => dispatch => {
       "Cache-Control": "no-cache",
     }
   }).then(res => {
-    dispatch({ type: PROCESS_UPLOAD, payload: res.data });
+    dispatch({ type: SONG_PROCESS_UPLOAD, payload: res.data });
   }).catch(err => console.log(err))
 }
 export const editSong = () => dispatch => {
   dispatch({ type: EDIT_SONG });
 };
-export const processEdit = (index, editForm, original) => dispatch => {
+export const processEditSong = (index, editForm, original) => dispatch => {
   var formData = new FormData();
   for (var key in editForm) {
     formData.append(key, editForm[key]);
@@ -97,7 +70,7 @@ export const processEdit = (index, editForm, original) => dispatch => {
 export const deleteSong = () => dispatch => {
   dispatch({ type: DELETE_SONG })
 }
-export const processDelete = (id) => dispatch => {
+export const processDeleteSong = (id) => dispatch => {
   var url = "/api/musics/" + String(id) + "/";
   axios.defaults.xsrfCookieName = 'csrftoken';
   axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -105,7 +78,7 @@ export const processDelete = (id) => dispatch => {
     headers: {
       "Accept": "*/*",
       "Content-Type": "multipart/form-data",
-      "Cache-Control": "no-cache",    
+      "Cache-Control": "no-cache",
     }
-  }).then(dispatch({ type: PROCESS_DELETE, payload: id })).catch(err => console.log(err))
+  }).then(dispatch({ type: SONG_PROCESS_DELETE, payload: id })).catch(err => console.log(err))
 }

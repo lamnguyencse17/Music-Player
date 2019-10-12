@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Sound from "react-sound";
 import PropTypes from "prop-types";
-import { nextSong, updateProgress } from "../../../../actions/musics";
+import { nextSong, updateProgress } from "../../../../actions/control";
 import { bindActionCreators } from "redux";
 
 export class Player extends Component {
@@ -51,11 +51,11 @@ export class Player extends Component {
 
 function mapStateToProps(state) {
   return {
-    playing: state.musics.playing,
-    lastplayed: state.musics.lastplayed,
-    volume: state.musics.volume,
-    progress: state.musics.progress,
-    playMode: state.musics.playMode
+    playing: state.control.playing,
+    lastplayed: state.control.lastplayed,
+    volume: state.control.volume,
+    progress: state.control.progress,
+    playMode: state.control.playMode
   };
 }
 function mapDispatchToProps(dispatch) {

@@ -15,11 +15,11 @@ export class Body extends Component {
 function mapStateToProps(state) {
   return {
     musics: state.musics.musics,
-    playing: state.musics.playing,
-    playMode: state.musics.playMode,
-    shuffle: state.musics.shuffle,
-    lastplayed: state.musics.lastplayed,
-    progress: state.musics.progress,
+    playing: state.control.playing,
+    playMode: state.control.playMode,
+    shuffle: state.control.shuffle,
+    lastplayed: state.control.lastplayed,
+    progress: state.control.progress,
     upload: state.musics.upload
   };
 }

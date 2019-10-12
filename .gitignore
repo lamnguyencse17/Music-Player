@@ -20,3 +20,5 @@ musicplayer/accounts/__pycache__/
 musicplayer/accounts/migrations/
 
 musicplayer/frontend/static/frontend/main\.js
+
+.idea/

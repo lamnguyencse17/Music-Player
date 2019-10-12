@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateProgress } from "../../../../actions/musics";
+import { updateProgress } from "../../../../actions/control";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 import { Slider, Direction } from 'react-player-controls'
@@ -115,11 +115,11 @@ class SlideBar extends Component {
 function mapStateToProps(state) {
     return {
       musics: state.musics.musics,
-      playing: state.musics.playing,
-      playMode: state.musics.playMode,
-      shuffle: state.musics.shuffle,
-      lastplayed: state.musics.lastplayed,
-      progress: state.musics.progress
+      playing: state.control.playing,
+      playMode: state.control.playMode,
+      shuffle: state.control.shuffle,
+      lastplayed: state.control.lastplayed,
+      progress: state.control.progress
     };
   }
   function mapDispatchToProps(dispatch) {
