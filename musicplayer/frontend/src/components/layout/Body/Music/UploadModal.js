@@ -23,7 +23,7 @@ export class UploadModal extends Component {
     }
     handleUpload = e => {
         e.preventDefault();
-        uploaddata = this.state;
+        let uploaddata = this.state;
         uploaddata.album = this.props.album.name;
         this.props.processUpload(uploaddata)
     }
@@ -68,7 +68,7 @@ export class UploadModal extends Component {
                         <div className="form-group">
                             <div className="input-group mb-3">
                                 <div className="custom-file">
-                                    <input type="file" onChange={(e) => this.setState({source: e.target.files})} class="custom-file-input" id="FileSource" />
+                                    <input type="file" onChange={(e) => this.setState({source: e.target.files})} className="custom-file-input" id="FileSource" />
                                     <label className="custom-file-label" for="FileSource">Choose file</label>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ function mapStateToProps(state) {
     return {
         upload: state.musics.upload,
         musics: state.musics.musics,
-        album: state.musics.album
+        album: state.album.album
     };
 } function mapDispatchToProps(dispatch) {
     return bindActionCreators({ uploadSong, processUpload }, dispatch);

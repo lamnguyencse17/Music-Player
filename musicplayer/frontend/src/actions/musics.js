@@ -22,7 +22,7 @@ export const getMusics = () => dispatch => {
 
 export const updateMusics = (updatedmusics) => dispatch => {
   dispatch({ type: UPDATE_MUSICS, payload: updatedmusics });
-}
+};
 
 export const uploadSong = () => dispatch => {
   dispatch({ type: UPLOAD_SONG });
@@ -32,8 +32,8 @@ export const processUpload = (uploadForm) => dispatch => {
   formData.append("source", uploadForm.source[0]);
   formData.append("song", uploadForm.title);
   formData.append("artist", uploadForm.artist);
-  formData.append("genre", uploadForm.genre)
-  formData.append("album", uploadForm.name)
+  formData.append("genre", uploadForm.genre);
+  formData.append("album", uploadForm.album);
   axios.defaults.xsrfCookieName = 'csrftoken';
   axios.defaults.xsrfHeaderName = 'X-CSRFToken';
   axios.post("/api/musics/", formData, {
